@@ -47,32 +47,36 @@ class Carrito {
     }
 }
 
-
 function procesarCompra() {
-    const carrito = new Carrito()
-
-    let esPrecioValido
-
-    do {
-        const precioLista = parseInt(prompt(carrito.obtenerResumen() +
-            "\nCual es el precioLista del nuevo producto? Ponga 0 para finalizar"))
-
-        esPrecioValido = !isNaN(precioLista) && (precioLista > 0)
-
-        if (esPrecioValido) {
-            carrito.agregarProducto(precioLista)
-        }
-    } while (esPrecioValido)
-
 
     const cuotas = parseInt(prompt(carrito.obtenerResumen() +
         "\nEn cuantas cuotas desea pagar?"))
 
     const valorCuota = carrito.obtenerValorCuotas(cuotas)
 
-
     alert(carrito.obtenerResumen() +
         `\nSe paga en ${cuotas} cuotas de $ ${valorCuota}.`)
 }
 
-procesarCompra()
+// procesarCompra()
+
+
+const carrito = new Carrito()
+
+const precioInput = document.getElementById("precio")
+const button = document.getElementById("button")
+
+button.addEventListener("click", function() {
+    const precioLista = parseInt(precioInput.value)
+
+    const esPrecioValido = !isNaN(precioLista) && (precioLista > 0)
+
+    if (!esPrecioValido) {
+        return
+    }
+
+    carrito.agregarProducto(precioLista)
+    console.log(carrito.obtenerResumen())
+
+    precioInput.value = "";
+})

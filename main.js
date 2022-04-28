@@ -76,7 +76,15 @@ button.addEventListener("click", function() {
     }
 
     carrito.agregarProducto(precioLista)
-    console.log(carrito.obtenerResumen())
+
+    refrescarResumenCarrito()
 
     precioInput.value = "";
 })
+
+
+function refrescarResumenCarrito() {
+    const resumenCarrito = document.getElementById("resumen-carrito")
+
+    resumenCarrito.innerText = carrito.obtenerResumen()
+}

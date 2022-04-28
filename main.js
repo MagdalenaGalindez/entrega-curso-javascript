@@ -47,24 +47,15 @@ class Carrito {
     }
 }
 
-function procesarCompra() {
-
-    const cuotas = parseInt(prompt(carrito.obtenerResumen() +
-        "\nEn cuantas cuotas desea pagar?"))
-
-    const valorCuota = carrito.obtenerValorCuotas(cuotas)
-
-    alert(carrito.obtenerResumen() +
-        `\nSe paga en ${cuotas} cuotas de $ ${valorCuota}.`)
-}
-
-// procesarCompra()
-
 
 const carrito = new Carrito()
 
 const precioInput = document.getElementById("precio")
 const button = document.getElementById("button")
+
+const cuotasSelect = document.getElementById("cuotas")
+cuotasSelect.addEventListener("change", refrescarResumenCarrito)
+
 
 button.addEventListener("click", function() {
     const precioLista = parseInt(precioInput.value)
@@ -84,7 +75,12 @@ button.addEventListener("click", function() {
 
 
 function refrescarResumenCarrito() {
+    const cuotas = parseInt(cuotasSelect.value)
+
+    const valorCuota = carrito.obtenerValorCuotas(cuotas)
+
     const resumenCarrito = document.getElementById("resumen-carrito")
 
-    resumenCarrito.innerText = carrito.obtenerResumen()
+    resumenCarrito.innerText = carrito.obtenerResumen() +
+        `\nSe paga en ${cuotas} cuotas de $ ${valorCuota}.`
 }

@@ -3,14 +3,24 @@
 class Carrito {
     constructor() {
         this.productos = []
+
+        const productosLocalStorage = JSON.parse(localStorage.getItem("carrito-productos"))
+
+        if (Array.isArray(productosLocalStorage)) {
+            this.productos = productosLocalStorage
+        }
     }
 
     agregarProducto(precioLista) {
         this.productos.push(precioLista)
+
+        localStorage.setItem("carrito-productos", JSON.stringify(this.productos))
     }
 
     vaciarCarrito() {
         this.productos = []
+
+        localStorage.setItem("carrito-productos", JSON.stringify([]))
     }
 
     obtenerValorCuotas(cantidadCuotas) {
@@ -63,6 +73,8 @@ const cuotasSelect = document.getElementById("cuotas")
 cuotasSelect.addEventListener("change", refrescarResumenCarrito)
 
 const vaciarCarritoButton = document.getElementById("vaciar-carrito")
+
+refrescarResumenCarrito()
 
 
 button.addEventListener("click", function () {

@@ -2,15 +2,15 @@
 
 class Carrito {
     constructor() {
-        this.precioListaTotal = 0
-
         this.productos = []
     }
 
     agregarProducto(precioLista) {
-        this.precioListaTotal += precioLista
-
         this.productos.push(precioLista)
+    }
+
+    vaciarCarrito() {
+        this.productos = []
     }
 
     obtenerValorCuotas(cantidadCuotas) {
@@ -20,7 +20,13 @@ class Carrito {
     }
 
     obtenerResumen() {
-        return `Tiene ${this.productos.length} productos por un total de $ ${this.precioListaTotal}.`
+        let precioListaTotal = 0
+
+        for (const precioLista of this.productos) {
+            precioListaTotal += precioLista
+        }
+
+        return `Tiene ${this.productos.length} productos por un total de $ ${precioListaTotal}.`
     }
 
     obtenerPrecioConImpuestos() {
@@ -56,8 +62,10 @@ const button = document.getElementById("button")
 const cuotasSelect = document.getElementById("cuotas")
 cuotasSelect.addEventListener("change", refrescarResumenCarrito)
 
+const vaciarCarritoButton = document.getElementById("vaciar-carrito")
 
-button.addEventListener("click", function() {
+
+button.addEventListener("click", function () {
     const precioLista = parseInt(precioInput.value)
 
     const esPrecioValido = !isNaN(precioLista) && (precioLista > 0)
@@ -71,6 +79,13 @@ button.addEventListener("click", function() {
     refrescarResumenCarrito()
 
     precioInput.value = "";
+})
+
+
+vaciarCarritoButton.addEventListener("click", function () {
+    carrito.vaciarCarrito()
+
+    refrescarResumenCarrito()
 })
 
 

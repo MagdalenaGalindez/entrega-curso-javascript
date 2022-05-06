@@ -43,13 +43,7 @@ class Carrito {
         let precioConImpuestos = 0
 
         for (const precioProducto of this.productos) {
-            let porcentajeImpuesto
-
-            if (precioProducto > 200) {
-                porcentajeImpuesto = 1.19
-            } else {
-                porcentajeImpuesto = 1.08
-            }
+            const porcentajeImpuesto = (precioProducto > 200) ? 1.19 : 1.08
 
             const precioFinalProducto = precioProducto * porcentajeImpuesto
 
@@ -77,27 +71,35 @@ const vaciarCarritoButton = document.getElementById("vaciar-carrito")
 refrescarResumenCarrito()
 
 
-button.addEventListener("click", function () {
+button.addEventListener("click", function() {
     const precioLista = parseInt(precioInput.value)
+
+    precioInput.value = "";
+
 
     const esPrecioValido = !isNaN(precioLista) && (precioLista > 0)
 
     if (!esPrecioValido) {
+        mostrarToast(`Precio inválido`, 'red')
+
         return
     }
+
 
     carrito.agregarProducto(precioLista)
 
     refrescarResumenCarrito()
 
-    precioInput.value = "";
+    mostrarToast(`Agregaste $ ${precioLista}`, 'green')
 })
 
 
-vaciarCarritoButton.addEventListener("click", function () {
+vaciarCarritoButton.addEventListener("click", function() {
     carrito.vaciarCarrito()
 
     refrescarResumenCarrito()
+
+    mostrarToast('El carrito está vacío ahora', 'orange')
 })
 
 
@@ -110,4 +112,17 @@ function refrescarResumenCarrito() {
 
     resumenCarrito.innerText = carrito.obtenerResumen() +
         `\nSe paga en ${cuotas} cuotas de $ ${valorCuota}.`
+}
+
+
+function mostrarToast(texto, color) {
+    Toastify({
+        text: texto,
+        duration: 3000,
+        gravity: 'bottom',
+        position: 'right',
+        style: {
+            background: color
+        }
+    }).showToast();
 }

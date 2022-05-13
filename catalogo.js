@@ -8,8 +8,10 @@ const armarCatalogo = () =>
 
         productos.forEach(producto => {
             container.innerHTML += `
+                <div class="producto" data-price="${producto.price}">
                     <h2>${producto.title}</h2>
                     <h3>${producto.price}<h3>
+                </div>
                 `
         })
     })

@@ -71,6 +71,9 @@ const vaciarCarritoButton = document.getElementById("vaciar-carrito")
 refrescarResumenCarrito()
 
 
+armarCatalogo()
+
+
 button.addEventListener("click", function() {
     const precioLista = parseInt(precioInput.value)
 

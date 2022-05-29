@@ -8,11 +8,17 @@ const armarCatalogo = () =>
 
         productos.forEach(producto => {
             container.innerHTML += `
-                <div class="producto" data-price="${producto.price}">
-                    <h2>${producto.title}</h2>
-                    <h3>${producto.price}<h3>
+                <div class="col">
+                    <div data-price="${producto.price}" class="card h-100 producto">
+                        <img src="${producto.thumbnail}" class="card-img-top" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">${producto.title} </h5>
+                            <h6>$ ${producto.price}</h6>
+                            <p class="card-text">${producto.description}</p>
+                        </div>
+                    </div>
                 </div>
-                `
+            `
         })
     })
     .catch(error => console.log(error))

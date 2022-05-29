@@ -60,9 +60,6 @@ class Carrito {
 
 const carrito = new Carrito()
 
-const precioInput = document.getElementById("precio")
-const button = document.getElementById("button")
-
 const cuotasSelect = document.getElementById("cuotas")
 cuotasSelect.addEventListener("change", refrescarResumenCarrito)
 
@@ -71,27 +68,22 @@ const vaciarCarritoButton = document.getElementById("vaciar-carrito")
 refrescarResumenCarrito()
 
 
-button.addEventListener("click", function() {
-    const precioLista = parseInt(precioInput.value)
+armarCatalogo()
+    .then(function() {
+        const productos = document.getElementsByClassName("producto");
+        for (const producto of productos) {
+            producto.addEventListener("click", function(e) {
+                const precio = parseInt(e.currentTarget.dataset.price)
 
-    precioInput.value = "";
+                carrito.agregarProducto(precio)
 
+                refrescarResumenCarrito()
 
-    const esPrecioValido = !isNaN(precioLista) && (precioLista > 0)
+                mostrarToast(`Agregaste $ ${precio}`, 'green')
 
-    if (!esPrecioValido) {
-        mostrarToast(`Precio inválido`, 'red')
-
-        return
-    }
-
-
-    carrito.agregarProducto(precioLista)
-
-    refrescarResumenCarrito()
-
-    mostrarToast(`Agregaste $ ${precioLista}`, 'green')
-})
+            })
+        }
+    })
 
 
 vaciarCarritoButton.addEventListener("click", function() {

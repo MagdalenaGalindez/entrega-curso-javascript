@@ -70,7 +70,8 @@ refrescarResumenCarrito()
 
 armarCatalogo()
     .then(function() {
-        const productos = document.getElementsByClassName("producto");
+        const productos = document.getElementsByClassName("add-product")
+
         for (const producto of productos) {
             producto.addEventListener("click", function(e) {
                 const precio = parseInt(e.currentTarget.dataset.price)

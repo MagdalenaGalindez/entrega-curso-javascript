@@ -36,7 +36,8 @@ class Carrito {
             precioListaTotal += precioLista
         }
 
-        return `Tiene ${this.productos.length} productos por un total de $ ${precioListaTotal}.`
+        return `Tiene ${this.productos.length} producto(s) por un total de $ ${precioListaTotal}
+            +19% IVA, en caso que el precio de un producto sea mayor a $ 200.`
     }
 
     obtenerPrecioConImpuestos() {
@@ -104,7 +105,7 @@ function refrescarResumenCarrito() {
     const resumenCarrito = document.getElementById("resumen-carrito")
 
     resumenCarrito.innerText = carrito.obtenerResumen() +
-        `\nSe paga en ${cuotas} cuotas de $ ${valorCuota}.`
+        `\nSe paga en ${cuotas} cuota(s) de $ ${valorCuota}, precio final.`
 }
 
 
